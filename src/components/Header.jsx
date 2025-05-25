@@ -1,6 +1,6 @@
 function Header({score, bestScore}) {
   return(
-    <>
+    <div className="sticky top-0 z-50 shadow-md">
         <h1 className="text-slate-200 text-4xl font-bold text-center mt-5">MEMORY CARD</h1>
         <div className="flex flex-col items-center justify-center">
           <h1 className="text-white">Welcome to the My Game</h1>
@@ -10,7 +10,7 @@ function Header({score, bestScore}) {
             <p className="bg-slate-200 w-max p-3 rounded cursor-pointer text-lg">Highest Score: {bestScore}🚀</p>
           </div>
         </div>
-    </>
+    </div>
   )
 }
 export default Header
