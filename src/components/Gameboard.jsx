@@ -3,6 +3,7 @@ import { useState, useEffect } from "react"
 function Gameboard({score, setScore, bestScore, setBestScore}) {
     const [cards, setcards] = useState([]);
     const [clickedCards, setclickedCards] = useState([]);
+    const [loading, setLoading] = useState(true);
 
 
 
@@ -10,6 +11,7 @@ function Gameboard({score, setScore, bestScore, setBestScore}) {
       const controller = new AbortController();
       const signal = controller.signal;
         const fetchImage = async () => {
+          setLoading(true);
             try {
                 const response = await fetch('https://api.thecatapi.com/v1/images/search?limit=6');
                 const data = await response.json();
@@ -24,13 +26,13 @@ function Gameboard({score, setScore, bestScore, setBestScore}) {
                 setcards(formattedData)
             } catch{
                 console.error("Error fetching data");
-            }
+            } finally{setLoading(false)}
         };
         fetchImage();
-        
+      
         return () => {
           controller.abort();
-          console.log('Netowork reques cancelled');
+          console.log('Network request cancelled');
           
         }
     }, []);
@@ -63,6 +65,7 @@ function Gameboard({score, setScore, bestScore, setBestScore}) {
       id={card.id}
       image={card.image}
       onClick={() => handleClick(card.id)}
+      onLoad={loading}
     />
   ))}
 </div>
